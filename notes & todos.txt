@@ -1,0 +1,30 @@
+TODOs:
+    1) Add in monetary functionality (e.g. wagers / wins & losses etc)
+    2) Options for different wagers
+    3) Add in Split functionality
+    4) Add some nicer CSS
+    5) Images instead of text for cards
+    6) 
+
+
+Game Mechanics:
+    1) Player buys chips (later)
+    2) Player places a wager (later)
+    3) Dealer deals cards to the player & themself (DONE!)
+    4) Player plays hand (In Progress)
+    5) Dealer plays their hand (In Progress)
+    6) Payouts 
+
+(4) playing mechanics...
+ - If dealt a Blackjack (21 total...) 
+    √) player immediately wins (1.5x wager), unless dealer also has Blackjack 
+    √) If dealer also has blackjac then wager returned
+ - If not dealt a blackjack, player has five options:
+    √) Stand (stay as you are - play moves on to dealer)
+    √) Hit (no limit on the number of cards you can hit - unless you bust!)
+    √) Double down (double your wager, dealer then deals you only one more card)
+    LATER) Split (if dealt two of the same cards - you can split and then effectively play each as individual hand - dealer will add one more card to each)
+    √) Surrender - if you don't like your hand, can surrender the hand and get half your wager back.
+
+CURRENT BUGS:
+> No functionality to handle Aces as either 1 or 11...
