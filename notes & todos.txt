@@ -28,3 +28,34 @@ Game Mechanics:
 
 CURRENT BUGS:
 > No functionality to handle Aces as either 1 or 11...
+
+
+Notes:
+
+how to handle aces??
+
+Each time that the score is calculated, check if the array.Name contains an Ace. If not, then calculate the score as normal.
+If the array does contain an Ace within the .Name object value, then the calculation should be run with (Each!) ace as either
+a 1 or as 11 (Further Q. how to handle more than one ace?!?!). (Possibly put the potential results in an array?).
+
+Put the array in reverse numerical order (e.g. highest value first). Select first result and take that value, unless over 21.
+If over 21, move onto the next value in the array...
+
+Should there be a generic calcuation function that then returns the players best score? Applying the DRY principle, 
+then probably yes
+
+How to build that function?
+Take one input into the function > whether the players cards or dealers cards are being calculated, so that it knows 
+which array to calculate.
+Should return two items: the best score for the player / 
+The range of possible scores - for display (later...) (this is important in helping players decide what actions to take - e.g. hit vs stand)
+
+Need to count the number of Aces, to know how many times to iterate through the calculation loop...
+
+How many possible scores can there be per Ace?
+
+One Ace (e.g. Ace, Five) = 2 possible scores: 16 or 6
+Two Aces (e.g. Ace, Ace) = 4 possible scores ??? 2, 12 (technically twice though), 22
+Two Aces (e.g. Ace, Ace, Five) = 4 possible scores: 7, 17 (technically twice), 27
+Three Aces (e.g. Ace, Ace, Ace) = 1/11 1/11 1/11 = Draw a table!
+Four Aces (e.g. ) = 1/11, 1/11, 1/11, 1/11 = 

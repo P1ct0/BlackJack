@@ -82,7 +82,7 @@ $("#deal").on("click", function() {
         playerMoney = playerMoney - wager;
         $("#wager").text("Wager: $" + wager);    
         $("#player-money").text("Player money: $" + playerMoney);
-        $("#player-message").text("");
+        gameMessage("");
         initialDeal()
         $("#player-card-1").text(playersCards[0].Name + " of " + playersCards[0].Suit);
         $("#player-card-2").text(playersCards[1].Name + " of " + playersCards[1].Suit);
@@ -100,7 +100,10 @@ $("#doubleDown").on("click", playerDoubleDown);
 $("#split").on("click", playerSplit);
 $("#surrender").on("click", playerSurrender);
 
-
+// Function to update game message:
+function gameMessage(message) {
+    $("#game-message").text(message);
+}
 
 // deal the initial cards to players:
 function initialDeal() {
@@ -146,7 +149,7 @@ function doesDealerHaveBlackjack() {
 
 function playerStand() {
     if (playerDecision) {
-        $("#player-message").text("Player stands");
+        gameMessage("Player stands");
         playerDecision = false;
         dealerTurn();
     } 
@@ -154,18 +157,19 @@ function playerStand() {
 
 function playerHit() {
     if (playerDecision) {
-        $("#player-message").text("Player hits");
+        gameMessage("Player hits");
         playerHandValue = 0
         playersCards.push(dealCard());
         var newCard = playersCards[playersCards.length-1].Name + " of " 
         + playersCards[playersCards.length-1].Suit
-        $("#player-message").text("Player new card: " + newCard);
+        gameMessage("Player new card: " + newCard);
         $("#player-card-2").after("<h2 class='additional-card'> " + newCard + "</h2>");
         playersCards.forEach(card => {
             playerHandValue += card.Value;
         });
+        console.log(calculateScore(playersCards));
         if (playerHandValue > 21) {
-            $("#player-message").text("Player Busts!");
+            gameMessage("Player Busts!");
             playerDecision = false;
             activeHand = false;
         }
@@ -174,18 +178,18 @@ function playerHit() {
 
 function playerDoubleDown() {
     if (playerDecision) {
-        $("#player-message").text("Player Doubles Down");
+        gameMessage("Player Doubles Down");
         playerHandValue = 0
         playersCards.push(dealCard());
         var newCard = playersCards[playersCards.length-1].Name + " of " 
         + playersCards[playersCards.length-1].Suit
-        $("#player-message").text("Player new card: " + newCard);
+        gameMessage("Player new card: " + newCard);
         $("#player-card-2").after("<h2 class='additional-card'> " + newCard + "</h2>");
         playersCards.forEach(card => {
             playerHandValue += card.Value;
         });
         if (playerHandValue > 21) {
-            $("#player-message").text("Player Busts!");
+            gameMessage("Player Busts!");
             playerDecision = false;
             activeHand = false;
         } else {
@@ -197,9 +201,9 @@ function playerDoubleDown() {
 
 function playerSurrender() {
     if (playerDecision) {
-        $("#player-message").text("Player Surrenders");
+        gameMessage("Player Surrenders");
         playerMoney = playerMoney + (wager * 0.5);
-        $("#player-money").text("Player money: $" + playerMoney);
+        gameMessage("Player money: $" + playerMoney);
         playerDecision = false;
         activeHand = false;
     }
@@ -214,7 +218,7 @@ function playerSplit() {
 }
 
 function dealerTurn() {
-    $("#player-message").text("Dealer's Turn");
+    gameMessage("Dealer's Turn");
     $("#dealer-card-2").text(dealersCards[1].Name + " of " + dealersCards[1].Suit);
     // Need to also add functionality for Aces - as treated as 1 / 11...
     dealersCards.forEach(card => {
@@ -225,25 +229,26 @@ function dealerTurn() {
         dealersCards.push(dealCard());
         var newCard = dealersCards[dealersCards.length-1].Name + " of " 
         + dealersCards[dealersCards.length-1].Suit
-        $("#player-message").text("Dealer's new card: " + newCard);
+        gameMessage("Dealer's new card: " + newCard);
         $("#dealer-card-2").after("<h2 class='additional-card'> " + newCard + "</h2>");
         dealersCards.forEach(card => {
             dealerHandValue += card.Value;
         });
     }
+    console.log(calculateScore(dealersCards));
     // Detmine who wins...
     if (dealerHandValue > 21) {
-        $("#player-message").text("Dealer Busts! Player Wins: $" + wager);
+        gameMessage("Dealer Busts! Player Wins: $" + wager);
         playerMoney = playerMoney + wager + wager;
         $("#player-money").text("Player money: $" + playerMoney);
     } else if (dealerHandValue > playerHandValue) {
-        $("#player-message").text("Dealer wins!");
+        gameMessage("Dealer wins!");
     } else if (dealerHandValue === playerHandValue) {
-        $("#player-message").text("Push!");
+        gameMessage("Push!");
         playerMoney += wager;
         $("#player-money").text("Player money: $" + playerMoney);
     } else {
-        $("#player-message").text("Player wins :)");
+        gameMessage("Player wins :)");
         playerMoney = playerMoney + wager + wager;
         $("#player-money").text("Player money: $" + playerMoney);
     }
@@ -259,12 +264,12 @@ if (doesPlayerHaveBlackjack() && !doesDealerHaveBlackjack()) {
     playerMoney = playerMoney + (wager * 1.5) + wager;
     $("#player-money").text("Player money: $" + playerMoney);
 } else if (doesPlayerHaveBlackjack() && doesDealerHaveBlackjack()) {
-    $("#player-message").text("Both player and dealer have BlackJack! Wager returned");
+    gameMessage("Both player and dealer have BlackJack! Wager returned");
     playerMoney += wager;
     $("#player-money").text("Player money: $" + playerMoney);
 } else {
     // give player next options - stand, hit, double down, split, surrender - via eventListeners
-    $("#player-message").text("Player's turn, what action would you like to take?");
+    gameMessage("Player's turn, what action would you like to take?");
 };
 }
 
@@ -283,7 +288,7 @@ function dealCard() {
 
 // End-hand function
 function endHand() {
-    $("#player-message").text("Press deal button to start again");
+    gameMessage("Press deal button to start again");
     $("#player-card-1").text("");
     $("#player-card-2").text("");
     $("#dealer-card-1").text("");
@@ -302,5 +307,44 @@ $("#endHand").on("click", function() {
     endHand();
 })
 
+function calculateScore(array) {
+    // use the function's inject to determine which array to perform the calculation against:
+    // for that array, determine if the array contains an ace?
+    var hasAce = false;
+    var numberOfAces = 0;
+    handValue = 0;
+    for (i = 0; i < array.length; i++) {
+        if (array[i].isAce) {
+            hasAce = true;
+            numberOfAces++;
+            console.log(numAces);
+        }
+    }
+    if (hasAce) {
+        var aceArray = []
+        console.log(array + "contains an ace");
+        array.forEach(card => {
+            handValue += card.Value;
+        });
+        aceArray.push(handValue);
+        for (i = 1; i <= numberOfAces; i++) {
+            aceArray.push(handValue + 10);
+        }
+        aceArray.sort(function(a, b){return b - a});
+        aceArray.forEach(val => {
+            if (val <= 21) {
+                handValue = val;
+                console.log("best hand value is" + handValue);
+                return handValue;
+            }
+        });
+        } else {
+            console.log(array + "does not contain an Ace");
+            array.forEach(card => {
+            handValue += card.Value;
+            return handValue;
+        });
+    }
+}
 
 
