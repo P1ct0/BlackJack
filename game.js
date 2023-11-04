@@ -93,18 +93,6 @@ $("#deal").on("click", function() {
     else {};
 });
 
-// Event listener for player decision buttons:
-$("#stand").on("click", playerStand);
-$("#hit").on("click", playerHit);
-$("#doubleDown").on("click", playerDoubleDown);
-$("#split").on("click", playerSplit);
-$("#surrender").on("click", playerSurrender);
-
-// Function to update game message:
-function gameMessage(message) {
-    $("#game-message").text(message);
-}
-
 // deal the initial cards to players:
 function initialDeal() {
     // deal card 1 to player:   
@@ -115,6 +103,20 @@ function initialDeal() {
     playersCards.push(dealCard());
     // deal card 2 to dealier:
     dealersCards.push(dealCard());
+    console.log("players current score: " + calculateScore("player"));
+    console.log("dealers current score: " + calculateScore("dealer"));
+}
+
+// Event listener for player decision buttons:
+$("#stand").on("click", playerStand);
+$("#hit").on("click", playerHit);
+$("#doubleDown").on("click", playerDoubleDown);
+$("#split").on("click", playerSplit);
+$("#surrender").on("click", playerSurrender);
+
+// Function to update game message:
+function gameMessage(message) {
+    $("#game-message").text(message);
 }
 
 function doesPlayerHaveBlackjack(){
@@ -167,7 +169,6 @@ function playerHit() {
         playersCards.forEach(card => {
             playerHandValue += card.Value;
         });
-        console.log(calculateScore(playersCards));
         if (playerHandValue > 21) {
             gameMessage("Player Busts!");
             playerDecision = false;
@@ -235,7 +236,6 @@ function dealerTurn() {
             dealerHandValue += card.Value;
         });
     }
-    console.log(calculateScore(dealersCards));
     // Detmine who wins...
     if (dealerHandValue > 21) {
         gameMessage("Dealer Busts! Player Wins: $" + wager);
@@ -263,6 +263,7 @@ playerDecision = true;
 if (doesPlayerHaveBlackjack() && !doesDealerHaveBlackjack()) {
     playerMoney = playerMoney + (wager * 1.5) + wager;
     $("#player-money").text("Player money: $" + playerMoney);
+    gameMessage("Player has BlackJack!");
 } else if (doesPlayerHaveBlackjack() && doesDealerHaveBlackjack()) {
     gameMessage("Both player and dealer have BlackJack! Wager returned");
     playerMoney += wager;
@@ -307,22 +308,33 @@ $("#endHand").on("click", function() {
     endHand();
 })
 
-function calculateScore(array) {
-    // use the function's inject to determine which array to perform the calculation against:
-    // for that array, determine if the array contains an ace?
+// Function to calculate the value of a hand (players or dealers depending on parameter passed in):
+function calculateScore(whoseScore) {
     var hasAce = false;
     var numberOfAces = 0;
     handValue = 0;
+    var array = "";
+    if (whoseScore === "player") {
+        array = playersCards;
+    } else if (whoseScore === "dealer") {
+        array = dealersCards;
+    }
     for (i = 0; i < array.length; i++) {
         if (array[i].isAce) {
             hasAce = true;
             numberOfAces++;
-            console.log(numAces);
+            console.log(numberOfAces);
         }
     }
-    if (hasAce) {
+    if (!hasAce) {
+            console.log("does not contain an Ace");
+            array.forEach(card => {
+                handValue += card.Value;
+            });
+            return handValue;
+        } else {
         var aceArray = []
-        console.log(array + "contains an ace");
+        console.log("contains an ace");
         array.forEach(card => {
             handValue += card.Value;
         });
@@ -331,20 +343,12 @@ function calculateScore(array) {
             aceArray.push(handValue + 10);
         }
         aceArray.sort(function(a, b){return b - a});
-        aceArray.forEach(val => {
-            if (val <= 21) {
-                handValue = val;
-                console.log("best hand value is" + handValue);
+        for (i = 0; i < aceArray.length; i++) {
+            if (aceArray[i] <= 21) {
+                handValue = aceArray[i];
+                console.log("best hand value is " + handValue);
                 return handValue;
             }
-        });
-        } else {
-            console.log(array + "does not contain an Ace");
-            array.forEach(card => {
-            handValue += card.Value;
-            return handValue;
-        });
+        }
     }
 }
-
-

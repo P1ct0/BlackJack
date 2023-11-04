@@ -48,3 +48,7 @@
 .box-11 {
     grid-column: 1 / 7;
 }
+
+.hidden-buttons {
+    visibility: hidden;
+}
