@@ -1,8 +1,12 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
     background-color: #014D43;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     color: white;
 }
 
@@ -80,14 +84,15 @@ button:active {
  
 .box-1 {
     grid-column: 1 / 7;
+    text-align: center;
 }
 
 .box-2 {
-    grid-column-start: 1;
+    grid-column: 1 / 7;
 }
 
 .box-3 {    
-    grid-column-start: 2;
+    grid-column: 1 / 7;
 }
 
 .box-4 {
@@ -122,6 +127,14 @@ button:active {
     grid-column: 1 / 7;
 }
 
+.box-12 {
+    grid-column: 1 / 7;
+}
+
 .hidden-buttons {
     visibility: hidden;
+}
+
+#deck-of-cards {
+    height: 5em;
 }
