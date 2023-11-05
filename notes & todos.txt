@@ -1,40 +1,21 @@
 TODOs:
-    a) Use the new calculateScore functionality wherever scores are calcuated...
-    b) Handle the end of the game in a nicer format
-    c) Add in chips
-    d) Add in functionality for different wagers (e.g. click on the chips to add to the wager)
+    Current to-dos:
+        a) Use the new calculateScore functionality wherever scores are calcuated...
+        b) Handle the end of the game in a nicer format
+        c) Add in chips
+        d) Add in functionality for different wagers (e.g. click on the chips to add to the wager)
 
-    1) Add in monetary functionality (e.g. wagers / wins & losses etc)
-    2) Options for different wagers
-    3) Add in Split functionality (later on...)
-    4) Add some nicer CSS
-    6) Fix the ace functionality in line with "official" blackjack rules... ?? maybe ??
-
-
-Game Mechanics:
-    1) Player buys chips (later)
-    2) Player places a wager (later)
-    3) Dealer deals cards to the player & themself (DONE!)
-    4) Player plays hand (In Progress)
-    5) Dealer plays their hand (In Progress)
-    6) Payouts 
-
-(4) playing mechanics...
- - If dealt a Blackjack (21 total...) 
-    √) player immediately wins (1.5x wager), unless dealer also has Blackjack 
-    √) If dealer also has blackjac then wager returned
- - If not dealt a blackjack, player has five options:
-    √) Stand (stay as you are - play moves on to dealer)
-    √) Hit (no limit on the number of cards you can hit - unless you bust!)
-    √) Double down (double your wager, dealer then deals you only one more card) (currently disabled)
-    LATER) Split (if dealt two of the same cards - you can split and then effectively play each as individual hand - dealer will add one more card to each)
-    √) Surrender - if you don't like your hand, can surrender the hand and get half your wager back.
+    Later to-dos:
+        1) Add in monetary functionality (e.g. wagers / wins & losses etc)
+        2) Options for different wagers
+        3) Add in Split functionality (later on...)
+        4) Add some nicer CSS
+        6) Fix the ace functionality in line with "official" blackjack rules... ?? maybe ??
 
 CURRENT BUGS:
-> Turns out I'd (MAYBE...) misunderstood aces, the first is worth 11 (unless it will bust the hand, then it's worth 1...)
-> I think the ace functionality i've used technically works, but probably needs re-work in light of the above...
-> Ensure that new cards are added to the end of the current list of cards, not inbetween 2nd and 3rd...
+    > Turns out I'd (MAYBE...) misunderstood aces, the first is worth 11 (unless it will bust the hand, then it's worth 1...)
+    > I think the ace functionality i've used technically works, but probably needs re-work in light of the above...
+    > Ensure that new cards are added to the end of the current list of cards, not inbetween 2nd and 3rd...
 
-Notes:
-
-Need to think how to better code the aces section (but at least it works for now)
+Notes / Thinking out loud:
+    >
