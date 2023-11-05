@@ -84,11 +84,10 @@ $("#deal").on("click", function() {
         $("#player-money").text("Player money: $" + playerMoney);
         gameMessage("");
         initialDeal()
-        
-        $("#player-card-1").text(playersCards[0].Name + " of " + playersCards[0].Suit);
-        $("#player-card-2").text(playersCards[1].Name + " of " + playersCards[1].Suit);
-        $("#dealer-card-1").text(dealersCards[0].Name + " of " + dealersCards[0].Suit);
-        $("#dealer-card-2").text("xxx");
+        $("#player-card-1").attr("src","Images/Cards/" + playersCards[0].ID + ".png");
+        $("#player-card-2").attr("src","Images/Cards/" + playersCards[1].ID + ".png");
+        $("#dealer-card-1").attr("src","Images/Cards/" + dealersCards[0].ID + ".png");
+        $("#dealer-card-2").attr("src","Images/Cards/Back.png");
         playHand();
     }
     else {};
@@ -114,11 +113,6 @@ $("#hit").on("click", playerHit);
 $("#doubleDown").on("click", playerDoubleDown);
 $("#split").on("click", playerSplit);
 $("#surrender").on("click", playerSurrender);
-
-// Function to update game message:
-function gameMessage(message) {
-    $("#game-message").text(message);
-}
 
 function doesPlayerHaveBlackjack(){
     if (playersCards[0].isAce || playersCards[1].isAce) {
@@ -163,10 +157,7 @@ function playerHit() {
         gameMessage("Player hits");
         playerHandValue = 0
         playersCards.push(dealCard());
-        var newCard = playersCards[playersCards.length-1].Name + " of " 
-        + playersCards[playersCards.length-1].Suit
-        gameMessage("Player new card: " + newCard);
-        $("#player-card-2").after("<h2 class='additional-card'> " + newCard + "</h2>");
+        $("#player-card-2").after("<img class='card-img additional-card' src='Images/Cards/" + playersCards[playersCards.length-1].ID + ".png'>"); // + playersCards[playersCards.length-1].ID + ".png>");
         playersCards.forEach(card => {
             playerHandValue += card.Value;
         });
@@ -221,18 +212,14 @@ function playerSplit() {
 
 function dealerTurn() {
     gameMessage("Dealer's Turn");
-    $("#dealer-card-2").text(dealersCards[1].Name + " of " + dealersCards[1].Suit);
-    // Need to also add functionality for Aces - as treated as 1 / 11...
+    $("#dealer-card-2").attr("src","Images/Cards/" + dealersCards[1].ID + ".png")
     dealersCards.forEach(card => {
         dealerHandValue += card.Value;
     });
     while (dealerHandValue < 17) {
         dealerHandValue = 0;
         dealersCards.push(dealCard());
-        var newCard = dealersCards[dealersCards.length-1].Name + " of " 
-        + dealersCards[dealersCards.length-1].Suit
-        gameMessage("Dealer's new card: " + newCard);
-        $("#dealer-card-2").after("<h2 class='additional-card'> " + newCard + "</h2>");
+        $("#dealer-card-2").after("<img class='card-img additional-card' src='Images/Cards/" + dealersCards[dealersCards.length-1].ID + ".png'>");
         dealersCards.forEach(card => {
             dealerHandValue += card.Value;
         });
@@ -291,16 +278,16 @@ function dealCard() {
 // End-hand function
 function endHand() {
     gameMessage("Press deal button to start again");
-    $("#player-card-1").text("");
-    $("#player-card-2").text("");
-    $("#dealer-card-1").text("");
-    $("#dealer-card-2").text("");
     $(".additional-card").remove();
     playerHandValue = 0;
     dealerHandValue = 0;
     $("#player-money").text("Player money: $" + playerMoney);
     $("#wager").text("Wager: $");
     playerDecision = false;
+    $("#player-card-1").attr("src","Images/Cards/Back.png");
+    $("#player-card-2").attr("src","Images/Cards/Back.png");
+    $("#dealer-card-1").attr("src","Images/Cards/Back.png");
+    $("#dealer-card-2").attr("src","Images/Cards/Back.png");
 }
 
 // End-hand listener (currently for debugging only):
@@ -308,6 +295,11 @@ $("#endHand").on("click", function() {
     activeHand = false;
     endHand();
 })
+
+// Function to update game message:
+function gameMessage(message) {
+    $("#game-message").text(message);
+}
 
 // Function to calculate the value of a hand (players or dealers depending on parameter passed in):
 function calculateScore(whoseScore) {

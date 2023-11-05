@@ -31,6 +31,7 @@ Game Mechanics:
 CURRENT BUGS:
 > Turns out I'd misunderstood aces, the first is worth 11 (unless it will bust the hand, then it's worth 1...)
 > I think the ace functionality i've used technically works, but probably needs re-work in light of the above...
+> Ensure that new cards are added to the end of the current list of cards, not inbetween 2nd and 3rd...
 
 Notes:
 
