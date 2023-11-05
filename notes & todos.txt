@@ -1,9 +1,9 @@
 TODOs:
     Current to-dos:
-        a) Use the new calculateScore functionality wherever scores are calcuated...
-        b) Tidy up the code used to determine if player has blackjack? (e.g. does initial hand = 21 is sufficient!)
+        √) Use the new calculateScore functionality wherever scores are calcuated...
+        √) Tidy up the code used to determine if player has blackjack? (e.g. does initial hand = 21 is sufficient!)
         c) Handle the end of the game in a nicer format
-        d) Add in chips
+        √) Add in chips
         e) Add in functionality for different wagers (e.g. click on the chips to add to the wager)
 
     Later to-dos:

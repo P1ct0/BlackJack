@@ -62,7 +62,7 @@ var playerMoney = 100;
 var wager = 0;
 var activeHand = false;
 var playerDecision = false;
-var playerHandValue = 5;
+var playerHandValue = 0;
 var dealerHandValue = 0;
 
 // Show player money on page load:
@@ -142,8 +142,6 @@ function initialDeal() {
     playersCards.push(dealCard());
     // deal card 2 to dealier:
     dealersCards.push(dealCard());
-    console.log("players current score: " + calculateScore("player"));
-    console.log("dealers current score: " + calculateScore("dealer"));
 }
 
 // Event listener for player decision buttons:
@@ -166,12 +164,9 @@ function playerStand() {
 function playerHit() {
     if (playerDecision) {
         gameMessage("Player hits");
-        playerHandValue = 0
         playersCards.push(dealCard());
         $("#player-card-2").after("<img class='card-img additional-card' src='Images/Cards/" + playersCards[playersCards.length-1].ID + ".png'>"); // + playersCards[playersCards.length-1].ID + ".png>");
-        playersCards.forEach(card => {
-            playerHandValue += card.Value;
-        });
+        playerHandValue = calculateScore("player");
         if (playerHandValue > 21) {
             gameMessage("Player Busts!");
             playerDecision = false;
@@ -184,15 +179,9 @@ function playerHit() {
 function playerDoubleDown() {
     if (playerDecision) {
         gameMessage("Player Doubles Down");
-        playerHandValue = 0
         playersCards.push(dealCard());
-        var newCard = playersCards[playersCards.length-1].Name + " of " 
-        + playersCards[playersCards.length-1].Suit
-        gameMessage("Player new card: " + newCard);
-        $("#player-card-2").after("<h2 class='additional-card'> " + newCard + "</h2>");
-        playersCards.forEach(card => {
-            playerHandValue += card.Value;
-        });
+        $("#player-card-2").after("<img class='card-img additional-card' src='Images/Cards/" + playersCards[playersCards.length-1].ID + ".png'>");
+        playerHandValue = calculateScore("player");
         if (playerHandValue > 21) {
             gameMessage("Player Busts!");
             playerDecision = false;
@@ -228,12 +217,9 @@ function dealerTurn() {
     $("#dealer-card-2").attr("src","Images/Cards/" + dealersCards[1].ID + ".png")
     dealerHandValue = calculateScore("dealer");
     while (dealerHandValue < 17) {
-        dealerHandValue = 0;
         dealersCards.push(dealCard());
         $("#dealer-card-2").after("<img class='card-img additional-card' src='Images/Cards/" + dealersCards[dealersCards.length-1].ID + ".png'>");
-        dealersCards.forEach(card => {
-            dealerHandValue += card.Value;
-        });
+        dealerHandValue = calculateScore("dealer");
     }
     // Detmine who wins...
     if (dealerHandValue > 21) {
@@ -307,18 +293,15 @@ function calculateScore(whoseScore) {
         if (array[i].isAce) {
             hasAce = true;
             numberOfAces++;
-            console.log(numberOfAces);
         }
     }
     if (!hasAce) {
-            console.log("does not contain an Ace");
             array.forEach(card => {
                 handValue += card.Value;
             });
             return handValue;
         } else {
         var aceArray = []
-        console.log("contains an ace");
         array.forEach(card => {
             handValue += card.Value;
         });
@@ -330,7 +313,6 @@ function calculateScore(whoseScore) {
         for (i = 0; i < aceArray.length; i++) {
             if (aceArray[i] <= 21) {
                 handValue = aceArray[i];
-                console.log("best hand value is " + handValue);
                 return handValue;
             }
         }
