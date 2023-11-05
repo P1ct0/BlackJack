@@ -84,6 +84,7 @@ $("#deal").on("click", function() {
         $("#player-money").text("Player money: $" + playerMoney);
         gameMessage("");
         initialDeal()
+        
         $("#player-card-1").text(playersCards[0].Name + " of " + playersCards[0].Suit);
         $("#player-card-2").text(playersCards[1].Name + " of " + playersCards[1].Suit);
         $("#dealer-card-1").text(dealersCards[0].Name + " of " + dealersCards[0].Suit);
