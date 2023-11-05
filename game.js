@@ -93,6 +93,26 @@ $("#deal").on("click", function() {
     else {};
 });
 
+// Event Listener on Chips
+$(".chip-img").on("click", function() {
+    if (!activeHand) {
+        switch (this.id) {
+            case "one-chip": console.log("Bet 1");
+                break;
+            case "five-chip": console.log("Bet 5");
+                break;
+            case "ten-chip": console.log("Bet 10");
+                break;
+            case "twentyfive-chip": console.log("Bet 25");
+                break;
+            case "fifty-chip": console.log("Bet 50");
+                break;
+            default:
+        }
+    }
+})
+
+
 // deal the initial cards to players:
 function initialDeal() {
     // deal card 1 to player:   
