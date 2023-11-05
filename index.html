@@ -3,6 +3,7 @@
     <head>
         <title></title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="cards.css">
     </head>
     <body>
 
@@ -20,6 +21,16 @@
             <div class="box-7"><button id="surrender" class="hidden-buttons">Surrender</button></div>
             <div class="box-8">
                 <h1>Player's Cards:</h1>
+                <div class="playingCards">
+                    <div class="card back" id="player-card-1-div">
+                        <span class="rank" id="player-card-1-rank">2</span>
+                        <span class="suit" id="player-card-1-suit">&hearts;</span>
+                    </div>
+                    <div class="card back">
+                        <span class="rank">2</span>
+                        <span class="suit">&hearts;</span>
+                    </div>
+                </div>
                 <h2 id="player-card-1"></h2>
                 <h2 id="player-card-2"></h2>
             </div>
@@ -44,6 +55,11 @@
         <br>
         <button id="endHand">End Hand!</button>
         
+        <div class="card rank-7 spades">
+            <span class="rank">7</span>
+            <span class="suit">&spades;</span>
+        </div>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="game.js" charset="utf-8"></script>
         
