@@ -93,6 +93,25 @@ $("#deal").on("click", function() {
     else {};
 });
 
+// Hand mechanics:
+function playHand(){
+    playerHandValue = calculateScore("player")
+    // First- establish if player has blackjack and does Dealer have blackjack?
+    if (calculateScore("player") === 21 && calculateScore("dealer") !== 21) {
+        playerMoney = playerMoney + (wager * 1.5) + wager;
+        $("#player-money").text("Player money: $" + playerMoney);
+        gameMessage("Player has BlackJack!");
+    } else if (calculateScore("player") === 21 && calculateScore("dealer") === 21) {
+        gameMessage("Both player and dealer have BlackJack. Push! Wager returned");
+        playerMoney += wager;
+        $("#player-money").text("Player money: $" + playerMoney);
+    } else {
+        // if not blackjack: give player next options activate playerDecision:
+        gameMessage("Player's turn, what action would you like to take?");
+        playerDecision = true;
+    }
+}
+
 // Event Listener on Chips
 $(".chip-img").on("click", function() {
     if (!activeHand) {
@@ -134,35 +153,7 @@ $("#doubleDown").on("click", playerDoubleDown);
 $("#split").on("click", playerSplit);
 $("#surrender").on("click", playerSurrender);
 
-function doesPlayerHaveBlackjack(){
-    if (playersCards[0].isAce || playersCards[1].isAce) {
-        //then need to establish if second card has a ten value...
-        if (playersCards[0].isAce && playersCards[1].Value === 10){
-            return true;
-        } else if (playersCards[1].isAce && playersCards[0].Value === 10) {
-                return true;
-            } else {
-                return false;
-            } 
-    } else {
-        return false;
-    }
-}
-
-function doesDealerHaveBlackjack() {
-    if (dealersCards[0].isAce || dealersCards[1].isAce) {
-        //then need to establish if second card has a ten value...
-        if (dealersCards[0].isAce && dealersCards[1].Value === 10){
-            return true;
-        } else if (dealersCards[1].isAce && dealersCards[0].Value === 10) {
-                return true;
-            } else {
-                return false;
-            } 
-    } else {
-        return false;
-    }
-}
+// Functions for player actions based on above Event Listeners:
 
 function playerStand() {
     if (playerDecision) {
@@ -189,6 +180,7 @@ function playerHit() {
     }
 }
 
+// Functions DoubleDown, Surrender, Split are not currently in use... (buttons hidden via CSS for now)
 function playerDoubleDown() {
     if (playerDecision) {
         gameMessage("Player Doubles Down");
@@ -230,12 +222,11 @@ function playerSplit() {
     }
 }
 
+// When play is then passed onto dealer after player Holds or "Doubles Down":
 function dealerTurn() {
     gameMessage("Dealer's Turn");
     $("#dealer-card-2").attr("src","Images/Cards/" + dealersCards[1].ID + ".png")
-    dealersCards.forEach(card => {
-        dealerHandValue += card.Value;
-    });
+    dealerHandValue = calculateScore("dealer");
     while (dealerHandValue < 17) {
         dealerHandValue = 0;
         dealersCards.push(dealCard());
@@ -262,26 +253,6 @@ function dealerTurn() {
     }
     activeHand = false;
 }
-
-//Hand mechanics:
-function playHand(){
-playerHandValue = playersCards[0].Value + playersCards[1].Value;
-playerDecision = true;
-// First- establish if player has blackjack and does Dealer have blackjack?
-if (doesPlayerHaveBlackjack() && !doesDealerHaveBlackjack()) {
-    playerMoney = playerMoney + (wager * 1.5) + wager;
-    $("#player-money").text("Player money: $" + playerMoney);
-    gameMessage("Player has BlackJack!");
-} else if (doesPlayerHaveBlackjack() && doesDealerHaveBlackjack()) {
-    gameMessage("Both player and dealer have BlackJack! Wager returned");
-    playerMoney += wager;
-    $("#player-money").text("Player money: $" + playerMoney);
-} else {
-    // give player next options - stand, hit, double down, split, surrender - via eventListeners
-    gameMessage("Player's turn, what action would you like to take?");
-};
-}
-
 
 // Dealing Mechanics:
 function dealCard() {
