@@ -70,7 +70,7 @@ $(window).on("load", function() {
     $("#player-money").text("Player money: $" + playerMoney);
 });
 
-// Deal cards
+// Event Listener on Click of "Deal" button:
 $("#deal").on("click", function() {
     if (!activeHand) {
         endHand();

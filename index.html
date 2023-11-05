@@ -4,6 +4,7 @@
         <title></title>
         <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="cards.css">
+        <link rel="stylesheet" href="chips.css">
     </head>
     <body>
 
@@ -22,13 +23,13 @@
             <div class="box-8">
                 <h1>Player's Cards:</h1>
                 <div class="playingCards">
-                    <div class="card back" id="player-card-1-div">
-                        <span class="rank" id="player-card-1-rank">2</span>
-                        <span class="suit" id="player-card-1-suit">&hearts;</span>
+                    <div class="card rank-7 spades" id="player-card-1-div">
+                        <span class="rank" id="player-card-1-rank">7</span>
+                        <span class="suit" id="player-card-1-suit">&spades;</span>
                     </div>
-                    <div class="card back">
-                        <span class="rank">2</span>
-                        <span class="suit">&hearts;</span>
+                    <div class="card back" id="player-card-2-div">
+                        <span class="rank" id="player-card-2-rank">7</span>
+                        <span class="suit" id="player-card-2-suit">&spades;</span>
                     </div>
                 </div>
                 <h2 id="player-card-1"></h2>
@@ -54,11 +55,6 @@
         </div>
         <br>
         <button id="endHand">End Hand!</button>
-        
-        <div class="card rank-7 spades">
-            <span class="rank">7</span>
-            <span class="suit">&spades;</span>
-        </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="game.js" charset="utf-8"></script>
