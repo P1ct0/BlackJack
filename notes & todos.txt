@@ -1,4 +1,12 @@
 TODOs:
+    
+    Deployment (for portfolio purposes):
+        1) set up environment within AWS (S3?)
+        1a) set up EC2 instance to run Jenkins
+        2) set up Jenkins job to run on pushes to main branch that completes security scans and then deploys automatically to 
+        3) set up development branch for further developments and then pull requests to merge into main branch when ready
+        4) 
+
     Current to-dos:
         √) Use the new calculateScore functionality wherever scores are calcuated...
         √) Tidy up the code used to determine if player has blackjack? (e.g. does initial hand = 21 is sufficient!)
