@@ -138,3 +138,20 @@ button:active {
 #deck-of-cards {
     height: 5em;
 }
+
+#message-box-popup {
+    background-color: red;
+    margin: auto;
+    padding: 2.5%;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 70%;
+    height: 50%;
+    z-index: 10;
+}
+
+.hidden-box {
+    visibility: hidden;
+}
+

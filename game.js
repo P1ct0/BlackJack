@@ -64,6 +64,7 @@ var activeHand = false;
 var playerDecision = false;
 var playerHandValue = 0;
 var dealerHandValue = 0;
+var popupActive = false;
 
 // Show player money on page load:
 $(window).on("load", function() {
@@ -150,6 +151,11 @@ $("#hit").on("click", playerHit);
 $("#doubleDown").on("click", playerDoubleDown);
 $("#split").on("click", playerSplit);
 $("#surrender").on("click", playerSurrender);
+
+// Event Listenter for popup box actions (initial testing / debug)
+$("#box-test").on("click", function() {
+    messagePopupOpen("New String :)");
+});
 
 // Functions for player actions based on above Event Listeners:
 
@@ -317,4 +323,10 @@ function calculateScore(whoseScore) {
             }
         }
     }
+}
+
+function messagePopupOpen(string) {
+    $("#message-box-popup").text(string);
+    $("#message-box-popup").toggleClass("hidden-box");
+    popupActive = true;
 }
