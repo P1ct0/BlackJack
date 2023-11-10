@@ -94,18 +94,20 @@ $("#deal").on("click", function() {
     else {};
 });
 
-// Hand mechanics:
+// Initial Hand mechanics:
 function playHand(){
     playerHandValue = calculateScore("player")
     // First- establish if player has blackjack and does Dealer have blackjack?
     if (calculateScore("player") === 21 && calculateScore("dealer") !== 21) {
         playerMoney = playerMoney + (wager * 1.5) + wager;
         $("#player-money").text("Player money: $" + playerMoney);
-        gameMessage("Player has BlackJack!");
+        messagePopup("Playe has BlackJack! Winnings: $" + (wager * 1.5));
+        endHand();
     } else if (calculateScore("player") === 21 && calculateScore("dealer") === 21) {
-        gameMessage("Both player and dealer have BlackJack. Push! Wager returned");
+        messagePopup("Push! Both Player and Dealer have Blackjack")
         playerMoney += wager;
         $("#player-money").text("Player money: $" + playerMoney);
+        endHand();
     } else {
         // if not blackjack: give player next options activate playerDecision:
         gameMessage("Player's turn, what action would you like to take?");
@@ -154,7 +156,7 @@ $("#surrender").on("click", playerSurrender);
 
 // Event Listenter for popup box actions (initial testing / debug)
 $("#box-test").on("click", function() {
-    messagePopupOpen("New String :)");
+    messagePopup("New String :)");
 });
 
 // Functions for player actions based on above Event Listeners:
@@ -174,7 +176,7 @@ function playerHit() {
         $("#player-card-2").after("<img class='card-img additional-card' src='Images/Cards/" + playersCards[playersCards.length-1].ID + ".png'>"); // + playersCards[playersCards.length-1].ID + ".png>");
         playerHandValue = calculateScore("player");
         if (playerHandValue > 21) {
-            gameMessage("Player Busts!");
+            messagePopup("Player Busts");
             playerDecision = false;
             activeHand = false;
         }
@@ -189,7 +191,7 @@ function playerDoubleDown() {
         $("#player-card-2").after("<img class='card-img additional-card' src='Images/Cards/" + playersCards[playersCards.length-1].ID + ".png'>");
         playerHandValue = calculateScore("player");
         if (playerHandValue > 21) {
-            gameMessage("Player Busts!");
+            messagePopup("Player Busts");
             playerDecision = false;
             activeHand = false;
         } else {
@@ -229,17 +231,17 @@ function dealerTurn() {
     }
     // Detmine who wins...
     if (dealerHandValue > 21) {
-        gameMessage("Dealer Busts! Player Wins: $" + wager);
+        messagePopup("Dealer Busts! Player wins: $" + wager);
         playerMoney = playerMoney + wager + wager;
         $("#player-money").text("Player money: $" + playerMoney);
     } else if (dealerHandValue > playerHandValue) {
-        gameMessage("Dealer wins!");
+        messagePopup("Dealer Wins")
     } else if (dealerHandValue === playerHandValue) {
-        gameMessage("Push!");
+        messagePopup("Push")
         playerMoney += wager;
         $("#player-money").text("Player money: $" + playerMoney);
     } else {
-        gameMessage("Player wins :)");
+        messagePopup("Player Wins: $" + wager);
         playerMoney = playerMoney + wager + wager;
         $("#player-money").text("Player money: $" + playerMoney);
     }
@@ -279,9 +281,18 @@ $("#endHand").on("click", function() {
     endHand();
 })
 
-// Function to update game message:
+// Function to update in-game message:
 function gameMessage(message) {
     $("#game-message").text(message);
+}
+
+// Function to display pop-up end of game message for 2seconds:
+function messagePopup(string) {
+    $("#popup-message").text(string);
+    $("#message-box-popup").toggleClass("hidden-box");
+    setTimeout(() => {
+        $("#message-box-popup").toggleClass("hidden-box");
+    }, 2000);
 }
 
 // Function to calculate the value of a hand (players or dealers depending on parameter passed in):
@@ -323,10 +334,4 @@ function calculateScore(whoseScore) {
             }
         }
     }
-}
-
-function messagePopupOpen(string) {
-    $("#message-box-popup").text(string);
-    $("#message-box-popup").toggleClass("hidden-box");
-    popupActive = true;
 }

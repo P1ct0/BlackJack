@@ -10,9 +10,10 @@ TODOs:
     Current to-dos:
         √) Use the new calculateScore functionality wherever scores are calcuated...
         √) Tidy up the code used to determine if player has blackjack? (e.g. does initial hand = 21 is sufficient!)
-        c) Handle the end of the game in a nicer format
-        √) Add in chips
+        IN PROGRESS) Handle the end of the game in a nicer format
+        √) Add in chips 
         e) Add in functionality for different wagers (e.g. click on the chips to add to the wager)
+        f) Tidy up Bank & Pot CSS -
 
     Later to-dos:
         1) Add in monetary functionality (e.g. wagers / wins & losses etc)

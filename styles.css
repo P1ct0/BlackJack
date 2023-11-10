@@ -1,5 +1,5 @@
 * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -140,15 +140,21 @@ button:active {
 }
 
 #message-box-popup {
-    background-color: red;
+    background: rgba(189, 195, 199, 0.95);
     margin: auto;
     padding: 2.5%;
     position: absolute;
     top: 20%;
     left: 10%;
     width: 70%;
-    height: 50%;
+    height: 20%;
     z-index: 10;
+    border-radius: 10%;
+    text-align: center;
+}
+
+#popup-message {
+    color: black;
 }
 
 .hidden-box {
