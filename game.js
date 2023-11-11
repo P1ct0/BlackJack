@@ -1,4 +1,4 @@
-// Create an array with full deck of cards:
+// Create an array with full deck of cards - as objects:
 var deckOfCards = [
     {ID: "HA", Suit: "Hearts", Name: "Ace", Value: 1, isAce: true},
     {ID: "H2", Suit: "Hearts", Name: "Two", Value: 2, isAce: false},
@@ -68,7 +68,7 @@ var popupActive = false;
 
 // Show player money on page load:
 $(window).on("load", function() {
-    $("#player-money").text("Player money: $" + playerMoney);
+    $("#player-money").text(playerMoney);
 });
 
 // Event Listener on Click of "Deal" button:
@@ -81,8 +81,8 @@ $("#deal").on("click", function() {
         activeHand = true;
         wager = 10;
         playerMoney = playerMoney - wager;
-        $("#wager").text("Wager: $" + wager);    
-        $("#player-money").text("Player money: $" + playerMoney);
+        $("#wager").text(wager);    
+        $("#player-money").text(playerMoney);
         gameMessage("");
         initialDeal()
         $("#player-card-1").attr("src","Images/Cards/" + playersCards[0].ID + ".png");
@@ -100,17 +100,17 @@ function playHand(){
     // First- establish if player has blackjack and does Dealer have blackjack?
     if (calculateScore("player") === 21 && calculateScore("dealer") !== 21) {
         playerMoney = playerMoney + (wager * 1.5) + wager;
-        $("#player-money").text("Player money: $" + playerMoney);
+        $("#player-money").text(playerMoney);
         messagePopup("Playe has BlackJack! Winnings: $" + (wager * 1.5));
         endHand();
     } else if (calculateScore("player") === 21 && calculateScore("dealer") === 21) {
         messagePopup("Push! Both Player and Dealer have Blackjack")
         playerMoney += wager;
-        $("#player-money").text("Player money: $" + playerMoney);
+        $("#player-money").text(playerMoney);
         endHand();
     } else {
         // if not blackjack: give player next options activate playerDecision:
-        gameMessage("Player's turn, what action would you like to take?");
+        gameMessage("Player's turn: What action would you like to take?");
         playerDecision = true;
     }
 }
@@ -154,11 +154,6 @@ $("#doubleDown").on("click", playerDoubleDown);
 $("#split").on("click", playerSplit);
 $("#surrender").on("click", playerSurrender);
 
-// Event Listenter for popup box actions (initial testing / debug)
-$("#box-test").on("click", function() {
-    messagePopup("New String :)");
-});
-
 // Functions for player actions based on above Event Listeners:
 
 function playerStand() {
@@ -179,6 +174,7 @@ function playerHit() {
             messagePopup("Player Busts");
             playerDecision = false;
             activeHand = false;
+            endHand();
         }
     }
 }
@@ -194,6 +190,7 @@ function playerDoubleDown() {
             messagePopup("Player Busts");
             playerDecision = false;
             activeHand = false;
+            endHand();
         } else {
             playerDecision = false;
             dealerTurn();
@@ -205,7 +202,7 @@ function playerSurrender() {
     if (playerDecision) {
         gameMessage("Player Surrenders");
         playerMoney = playerMoney + (wager * 0.5);
-        gameMessage("Player money: $" + playerMoney);
+        gameMessage(playerMoney);
         playerDecision = false;
         activeHand = false;
     }
@@ -233,17 +230,21 @@ function dealerTurn() {
     if (dealerHandValue > 21) {
         messagePopup("Dealer Busts! Player wins: $" + wager);
         playerMoney = playerMoney + wager + wager;
-        $("#player-money").text("Player money: $" + playerMoney);
+        $("#player-money").text(playerMoney);
+        endHand();
     } else if (dealerHandValue > playerHandValue) {
-        messagePopup("Dealer Wins")
+        messagePopup("Dealer Wins");
+        endHand();
     } else if (dealerHandValue === playerHandValue) {
         messagePopup("Push")
         playerMoney += wager;
-        $("#player-money").text("Player money: $" + playerMoney);
+        $("#player-money").text(playerMoney);
+        endHand();
     } else {
         messagePopup("Player Wins: $" + wager);
         playerMoney = playerMoney + wager + wager;
-        $("#player-money").text("Player money: $" + playerMoney);
+        $("#player-money").text(playerMoney);
+        endHand();
     }
     activeHand = false;
 }
@@ -266,8 +267,8 @@ function endHand() {
     $(".additional-card").remove();
     playerHandValue = 0;
     dealerHandValue = 0;
-    $("#player-money").text("Player money: $" + playerMoney);
-    $("#wager").text("Wager: $");
+    $("#player-money").text(playerMoney);
+    $("#wager").text("");
     playerDecision = false;
     $("#player-card-1").attr("src","Images/Cards/Back.png");
     $("#player-card-2").attr("src","Images/Cards/Back.png");

@@ -12,6 +12,9 @@
                 <img src="Images/deck-of-card.png" id="deck-of-cards">
                 <h1>JavaScript BlackJack</h1>
             </div>
+            <div class="box-10" id="game-message-box">
+                <h3 id="game-message"></h3>
+            </div>
             <div class="box-8">
                 <h1>Player's Cards:</h1>
                 <div class="card-holder">
@@ -26,9 +29,6 @@
                     <img src="images/cards/Back.png" class="card-img" id="dealer-card-2">
                 </div>
             </div>
-            <div class="box-10" id="game-message-box">
-                <h3 id="game-message"></h3>
-            </div>
             <div class="box-2">
                 <button id="deal">Deal</button>
                 <button id="stand">Stand</button>
@@ -37,13 +37,27 @@
                 <button id="split" class="hidden-buttons">Split</button>
                 <button id="surrender" class="hidden-buttons">Surrender</button>
             </div>
+            <div class="pot-header-div">
+                <h3>Pot:</h3>
+            </div>
+            <div class="bank-header-div">
+                <h3>Bank:</h3>
+            </div>
             <div class="box-11">
-                    <h2>Pot:</h2>
-                    <h4 id="wager">Wager: </h4>
+                    <h4>$<span id="wager"></span></h4>
             </div>
             <div class="box-12">
-                    <h2>Bank:</h2>
-                    <h3 id="player-money">$ </h3>
+                    <h3>
+                        $
+                        <span id="player-money">0</span>
+                        <span>
+                            <img src="Images/Chips/OneChip.png" class="chip-img" id="one-chip">
+                            <img src="Images/Chips/FiveChip.png" class="chip-img" id="five-chip">
+                            <img src="Images/Chips/TenChip.png" class="chip-img" id="ten-chip">
+                            <img src="Images/Chips/TwentyFiveChip.png" class="chip-img" id="twentyfive-chip">
+                            <img src="Images/Chips/FiftyChip.png" class="chip-img" id="fifty-chip">
+                        </span>
+                    </h3>
             </div>
             <div class="box-3">
                     <img src="Images/Chips/OneChip.png" class="chip-img" id="one-chip">
